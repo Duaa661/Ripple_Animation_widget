@@ -1,0 +1,74 @@
+class _MyHomePageState extends State<MyHomePage>
+with SingleTickerProviderStateMixin {
+  late Animation _animation;
+  late AnimationController _animationController;
+  var listradius = [150,300,450,500,650];
+ @override
+ void initState() {
+   super.initState();
+     _animationController=AnimationController(vsync: this,duration: Duration(seconds: 5));
+   //_animation=Tween(begin: 0.0,end: 0.1).animate(_animationController);
+   _animationController.addListener((){
+setState(() {
+
+});
+   });
+   _animationController.forward();
+ }
+  void _incrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+      appBar: AppBar(
+        // TRY THIS: Try changing the color here to a specific color (to
+        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+        // change color while the other colors stay the same.
+        backgroundColor: Theme
+            .of(context)
+            .colorScheme
+            .inversePrimary,
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text("Ripple Animation"),
+      ),
+      body: Center(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              buildmyConatiner(listradius[0]),
+              buildmyConatiner(listradius[1]),
+              buildmyConatiner(listradius[2]),
+              buildmyConatiner(listradius[3]),
+              buildmyConatiner(listradius[4]),
+              Icon(Icons.add_call,color: Colors.black,size: 34,)
+            ],
+          )
+      ),
+    );
+  }
+      Widget buildmyConatiner(radius){
+        return Container(
+          width: radius*_animationController.value,
+          height: radius*_animationController.value,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color:Colors.yellow.withOpacity(1.0-_animationController.value)
+          ),
+        );
+    }
+}
